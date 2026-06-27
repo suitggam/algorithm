@@ -27,7 +27,7 @@ public class JO1106 {
     
     static void move(int x, int y, int moveCnt) { // 말이 이동하는 메서드
         // 현재 최소 이동 횟수보다 같거나 크면 종료
-        if (moveCnt >= board[x][y]) return;
+        if (moveCnt >= board[x][y] || moveCnt >= board[S][K]) return;
         
         board[x][y] = moveCnt; // 현재 최소 이동 횟수 갱신
         
@@ -41,7 +41,7 @@ public class JO1106 {
             
             if (nx < 1 || ny < 1 || nx > N || ny > M) continue; // 장기판을 벗어나면 continue
             
-            move(x + dx[d], y + dy[d], moveCnt + 1); // 다른 위치로 이동
+            move(nx, ny, moveCnt + 1); // 다른 위치로 이동
         }
     } // move 종료
     
