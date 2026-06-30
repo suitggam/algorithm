@@ -24,16 +24,13 @@ public class JO6193 {
         // 버퍼 닫기
         br.close();
         
-        int[] oneDigit = new int[21]; // 일의 자릿수 배열
-        for (int i = 1; i <= 20; i++) {
-            oneDigit[i] = i * i % 10; // 제곱수의 1의 자리만 구하기
-        }
-        
-        for (int i = 1; i <= 20; i++) { // 1의 자리 누적 합 변환
-            oneDigit[i] = (oneDigit[i - 1] + oneDigit[i]) % 10;
+        int remain = (int) (N % 20); // 남은 숫자
+        int lastDigit = 0; // 제곱수의 합의 마지막 자릿수
+        for (int i = 1; i <= remain; i++) {
+            lastDigit = (lastDigit + i * i) % 10; // 남은 자리 제곱수의 합의 마지막 자릿수 구하기
         }
         
         // 결과값 출력하기
-        System.out.print(oneDigit[(int) (N % 20)]);
+        System.out.print(lastDigit);
     } // main 종료
 } // Main 종료
