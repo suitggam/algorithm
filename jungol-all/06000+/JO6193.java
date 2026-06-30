@@ -27,10 +27,10 @@ public class JO6193 {
         int remain = (int) (N % 20); // 남은 숫자
         int lastDigit = 0; // 제곱수의 합의 마지막 자릿수
         for (int i = 1; i <= remain; i++) {
-            lastDigit = (lastDigit + i * i) % 10; // 남은 자리 제곱수의 합의 마지막 자릿수 구하기
+            lastDigit += i * i; // 제곱수의 합 더해주기
         }
         
         // 결과값 출력하기
-        System.out.print(lastDigit);
+        System.out.print(lastDigit % 10);
     } // main 종료
 } // Main 종료
