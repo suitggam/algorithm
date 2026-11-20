@@ -19,10 +19,10 @@ public class BOJ2841 {
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         
         int N = Integer.parseInt(st.nextToken()); // 멜로디에 포함돼있는 음의 수
-        int P = Integer.parseInt(st.nextToken()); // 한 줄에 있는 프렛의 수
+        st.nextToken(); // 한 줄에 있는 프렛의 수
         
-        ArrayDeque<Integer>[] stack = new ArrayDeque[N + 1]; // 스택 배열 생성
-        for (int i = 1; i <= N; i++) stack[i] = new ArrayDeque<>(); // 스택 생성
+        ArrayDeque<Integer>[] stack = new ArrayDeque[6 + 1]; // 스택 배열 생성
+        for (int i = 1; i <= 6; i++) stack[i] = new ArrayDeque<>(); // 스택 생성
         
         int sound; // 음 번호
         int fret;  // 프렛 번호
@@ -34,21 +34,18 @@ public class BOJ2841 {
             fret  = Integer.parseInt(st.nextToken()); // 프렛 번호
             
             cur = stack[sound].peek() == null ? 0 : stack[sound].peek(); // 현재 프렛 번호보다 높은 경우
-            if (cur < fret) { // 기존의 프렛보다 높은 프렛인 경우
+            
+            while (cur > fret) { // 현재 프렛 번호보다 낮은 경우
+                stack[sound].pop(); // 프렛 번호 pop
+                minCnt++; // 손가락 떼기
+                cur = stack[sound].peek() == null ? 0 : stack[sound].peek(); // 현재 프렛 번호보다 높은 경우
+            }
+            
+            if (cur < fret) { // 현재 프렛보다 번호가 높은 경우
                 stack[sound].push(fret); // 프렛 번호 push
                 minCnt++; // 한 번 누르기
-            } else if (cur > fret) { // 현재 프렛 번호보다 낮은 경우
-                while (cur > fret) {
-                    stack[sound].pop(); // 프렛 번호 pop
-                    minCnt++; // 손가락 떼기
-                    cur = stack[sound].peek() == null ? 0 : stack[sound].peek(); // 현재 프렛 번호보다 높은 경우
-                }
-                
-                if (cur < fret) { // 현재 프렛보다 번호가 높은 경우
-                    stack[sound].push(fret); // 프렛 번호 push
-                    minCnt++; // 한 번 누르기
-                }
             }
+            
         }
         
         // 버퍼 닫기
