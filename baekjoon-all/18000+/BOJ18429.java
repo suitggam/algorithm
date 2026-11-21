@@ -20,26 +20,17 @@ public class BOJ18429 {
     static void recur(int idx, int usedCnt, int weight, boolean[] used) { // 중량을 측정하는 메서드
         used[idx] = true; // 현재 운동 키트 사용 처리
         usedCnt++; // 현재 사용된 운동 키트 개수 증가
-        weight -= K; // 중량 감소
-        int curWeight = weight + kit[idx]; // 현재 중량
+        int curWeight = weight + kit[idx] - K; // 현재 중량
         
-        // 유지 조건
-        if (usedCnt == N && curWeight >= 500) {
-            cnt++; // 중량이 유지되는 경우의 수
-            used[idx] = false; // 운동 키트 사용 처리 취소
-            return;
-        }
-        
-        // 종료 조건
-        if (curWeight < 500) {
-            used[idx] = false; // 운동 키트 사용 처리 취소
-            return;
-        }
-            
-        for (int i = 0; i < N; i++) {
-            if (used[i]) continue; // 사용한 운동 키트면 continue
-            
-            recur(i, usedCnt, curWeight, used); // 다음 운동 키트 호출
+        if (curWeight >= 500) { // 중량이 유지된 경우
+            if (usedCnt == N) cnt++; // 모든 운동 키트를 사용한 경우
+            else {
+                for (int i = 0; i < N; i++) {
+                    if (used[i]) continue; // 이미 사용한 운동 키트인 경우 continue
+                    
+                    recur(i, usedCnt, curWeight, used); // 다음 운동 키트 호출
+                }
+            }
         }
         
         used[idx] = false; // 운동 키트 사용 처리 취소
